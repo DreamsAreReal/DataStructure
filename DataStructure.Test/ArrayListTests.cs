@@ -94,6 +94,55 @@ namespace DataStructure.Test
             });
         }
 
+        [TestCase(new int[] {1,2,3}, 2)]
+        [TestCase(new int[] {5,5,5}, 0)]
+        [TestCase(new int[] {5}, 0)]
+        [TestCase(new int[] {-4,4}, 1)]
+        [TestCase(new int[] {-4,-5}, 0)]
+        [TestCase(new int[] {0,2,0}, 1)]
+        [TestCase(new int[] {2,0,0}, 0)]
+        public void GetMaxIndexTest(int[] arr, int expected)
+        {
+            ArrayList arraylist = new ArrayList(arr);
+            int actual = arraylist.GetMaxIndex();
+            Assert.AreEqual(expected, actual);
+        }
+        
+        
+        [TestCase(new int[] {})]
+        public void GetMaxIndexNegativeTest(int[] arr)
+        {
+            ArrayList arrayList = new ArrayList(arr);
+            Assert.Throws<NullReferenceException>(() =>
+            {
+                arrayList.GetMaxIndex();
+            });
+        }
+
+        [TestCase(new int[] {1,2,3}, 0)]
+        [TestCase(new int[] {5,5,5}, 0)]
+        [TestCase(new int[] {5}, 0)]
+        [TestCase(new int[] {-4,4}, 0)]
+        [TestCase(new int[] {-4,-5}, 1)]
+        [TestCase(new int[] {0,2,0}, 0)]
+        [TestCase(new int[] {2,0,0}, 1)]
+        public void GetMinIndexTest(int[] arr, int expected)
+        {
+            ArrayList arrayList = new ArrayList(arr);
+            int actual = arrayList.GetMinIndex();
+            Assert.AreEqual(expected,actual);
+        }
+        
+        [TestCase(new int[] {})]
+        public void GetMinIndexNegativeTest(int[] arr)
+        {
+            ArrayList arrayList = new ArrayList(arr);
+            Assert.Throws<NullReferenceException>(() =>
+            {
+                arrayList.GetMaxIndex();
+            });
+        }
+        
         [TestCase(new int[] {1,2,3}, 3)]
         [TestCase(new int[] {5,5,5}, 5)]
         [TestCase(new int[] {5}, 5)]
@@ -134,7 +183,7 @@ namespace DataStructure.Test
         }
         
         [TestCase(new int[] {})]
-        public void GetMinxNegativeTest(int[] arr)
+        public void GetMinNegativeTest(int[] arr)
         {
             ArrayList arrayList = new ArrayList(arr);
             Assert.Throws<NullReferenceException>(() =>

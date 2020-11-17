@@ -68,19 +68,59 @@ namespace DataStructure
             {
                 throw new NullReferenceException("The list cannot be empty.");
             }
-            int max = _array[0];
+            int min = _array[0];
             
             for (int i = 0; i < Lenght; i++)
             {
-                if (_array[i] < max)
+                if (_array[i] < min)
                 {
-                    max = _array[i];
+                    min = _array[i];
                 }
             }
 
-            return max;
+            return min;
         }
+        
+        public int GetMaxIndex()
+        {
+            if (Lenght == 0)
+            {
+                throw new NullReferenceException("The list cannot be empty.");
+            }
+            int tmp = _array[0];
+            int maxIndex = 0;
+            for (int i = 0; i < Lenght; i++)
+            {
+                if (_array[i] > tmp)
+                {
+                    tmp = _array[i];
+                    maxIndex = i;
+                }
+            }
 
+            return maxIndex;
+        }
+        
+        public int GetMinIndex()
+        {
+            if (Lenght == 0)
+            {
+                throw new NullReferenceException("The list cannot be empty.");
+            }
+            int tmp = _array[0];
+            int minIndex = 0;
+            for (int i = 0; i < Lenght; i++)
+            {
+                if (_array[i] < tmp)
+                {
+                    tmp = _array[i];
+                    minIndex = i;
+                }
+            }
+
+            return minIndex;
+        }
+    
         public void SortAscending()
         {
             for (int i = 1; i < Lenght; i++)
