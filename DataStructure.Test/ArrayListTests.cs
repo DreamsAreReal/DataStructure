@@ -1,6 +1,7 @@
 using System;
 using NUnit.Framework;
 using DataStructure;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 
 namespace DataStructure.Test
 {
@@ -11,7 +12,8 @@ namespace DataStructure.Test
         [TestCase(new int[] {})]
         [TestCase(new int[] {0,0})]
         [TestCase(new int[] {0,1,2,3})]
-        public void AddTests(int[] arr)
+        [TestCase(new int[] {0, 2,3})]
+        public void AddTest(int[] arr)
         {
             ArrayList actual = new ArrayList();
             ArrayList expected = new ArrayList(arr);
@@ -27,7 +29,7 @@ namespace DataStructure.Test
         [TestCase(new int[] {}, new int[] {})]
         [TestCase(new int[] {1,2}, new int[] {2,1})]
         [TestCase(new int[] {-10,7,6}, new int[] {6,7,-10})]
-        public void ReverseTests(int[] arr, int[] expectedArray)
+        public void ReverseTest(int[] arr, int[] expectedArray)
         {
             ArrayList expected = new ArrayList(expectedArray);
             ArrayList actual = new ArrayList(arr);
@@ -42,7 +44,7 @@ namespace DataStructure.Test
         [TestCase(new int[] {6,7,8,9,10}, 4, 10)]
         [TestCase(new int[] {5,5,1}, 1, 5)]
         [TestCase(new int[] {31}, 0, 31)]
-        public void GetByIndexTests(int[] arr, int index, int expected)
+        public void GetByIndexTest(int[] arr, int index, int expected)
         {
             ArrayList arrayList = new ArrayList(arr);
             int actual = arrayList[index];
@@ -53,7 +55,7 @@ namespace DataStructure.Test
         [TestCase(new int[] {}, 1)]
         [TestCase(new int[] {18,91,34}, -2)]
         [TestCase(new int[] {6,2,3}, 10)]
-        public void GetByIndexNegativeTests(int[] arr, int index)
+        public void GetByIndexNegativeTest(int[] arr, int index)
         {
             ArrayList actual = new ArrayList(arr);
             Assert.Throws<IndexOutOfRangeException>(() =>
@@ -63,16 +65,18 @@ namespace DataStructure.Test
         }
         
         
-        [TestCase(new int[] {5,6,7}, 1, 7)]
-        [TestCase(new int[] {-1,6,1,4,5,6,7,2,1}, 5, -1)]
-        [TestCase(new int[] {6,7,8,9,10}, 3, 10)]
-        [TestCase(new int[] {5,5,1}, 2, 5)]
-        [TestCase(new int[] {31}, 0, 77)]
-        public void SetByIndexTests(int[] arr, int index, int expected)
+
+        [TestCase(new int[] {5,6,7}, 0, 31, new int[] {31,6,7})]
+        [TestCase(new int[] {5,6,7}, 2, 2, new int[] {5,6,2})]
+        [TestCase(new int[] {5,6,7}, 1, 31, new int[] {5,31,7})]
+        [TestCase(new int[] {5,6,7}, 1, int.MaxValue, new int[] {5,int.MaxValue,7})]
+        [TestCase(new int[] {5}, 0, 3, new int[] {3})]
+        public void SetByIndexTest(int[] arr, int index, int value, int[] expectedArray)
         {
-            ArrayList arrayList = new ArrayList(arr);
-            arrayList[index] = expected;
-            int actual = arrayList[index];
+            ArrayList actual = new ArrayList(arr);
+            ArrayList expected = new ArrayList(expectedArray);
+            actual[index] = value;
+            
             Assert.AreEqual(expected, actual);
         }
         
@@ -81,12 +85,61 @@ namespace DataStructure.Test
         [TestCase(new int[] {6,7,8,9,10}, 10)]
         [TestCase(new int[] {5,5,1}, 5)]
         [TestCase(new int[] {}, 77)]
-        public void SetByIndexNegativeTests(int[] arr, int index)
+        public void SetByIndexNegativeTest(int[] arr, int index)
         {
             ArrayList actual = new ArrayList(arr);
             Assert.Throws<IndexOutOfRangeException>(() =>
             {
                 actual[index]=0; 
+            });
+        }
+
+        [TestCase(new int[] {1,2,3}, 3)]
+        [TestCase(new int[] {5,5,5}, 5)]
+        [TestCase(new int[] {5}, 5)]
+        [TestCase(new int[] {-4,4}, 4)]
+        [TestCase(new int[] {-4,-5}, -4)]
+        [TestCase(new int[] {0,2,0}, 2)]
+        [TestCase(new int[] {2,0,0}, 2)]
+        public void GetMaxTest(int[] arr, int expected)
+        {
+            ArrayList arraylist = new ArrayList(arr);
+            int actual = arraylist.GetMax();
+            Assert.AreEqual(expected, actual);
+        }
+        
+        
+        [TestCase(new int[] {})]
+        public void GetMaxNegativeTest(int[] arr)
+        {
+            ArrayList arrayList = new ArrayList(arr);
+            Assert.Throws<NullReferenceException>(() =>
+            {
+                arrayList.GetMax();
+            });
+        }
+
+        [TestCase(new int[] {1,2,3}, 1)]
+        [TestCase(new int[] {5,5,5}, 5)]
+        [TestCase(new int[] {5}, 5)]
+        [TestCase(new int[] {-4,4}, -4)]
+        [TestCase(new int[] {-4,-5}, -5)]
+        [TestCase(new int[] {0,2,0}, 0)]
+        [TestCase(new int[] {2,0,0}, 0)]
+        public void GetMinTest(int[] arr, int expected)
+        {
+            ArrayList arrayList = new ArrayList(arr);
+            int actual = arrayList.GetMin();
+            Assert.AreEqual(expected,actual);
+        }
+        
+        [TestCase(new int[] {})]
+        public void GetMinxNegativeTest(int[] arr)
+        {
+            ArrayList arrayList = new ArrayList(arr);
+            Assert.Throws<NullReferenceException>(() =>
+            {
+                arrayList.GetMin();
             });
         }
         

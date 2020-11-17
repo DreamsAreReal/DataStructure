@@ -42,6 +42,44 @@ namespace DataStructure
                 _array[index] = value;
             }
         }
+
+        public int GetMax()
+        {
+            if (Lenght == 0)
+            {
+                throw new NullReferenceException("The list cannot be empty.");
+            }
+            int max = _array[0];
+            
+            for (int i = 0; i < Lenght; i++)
+            {
+                if (_array[i] > max)
+                {
+                    max = _array[i];
+                }
+            }
+
+            return max;
+        }
+        
+        public int GetMin()
+        {
+            if (Lenght == 0)
+            {
+                throw new NullReferenceException("The list cannot be empty.");
+            }
+            int max = _array[0];
+            
+            for (int i = 0; i < Lenght; i++)
+            {
+                if (_array[i] < max)
+                {
+                    max = _array[i];
+                }
+            }
+
+            return max;
+        }
         
         public void Reverse()
         {
@@ -86,7 +124,12 @@ namespace DataStructure
 
             return true;
         }
-        
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+
         private void IncreaseLenght(int number = 1)
         {
             int newLenght = _array.Length;
