@@ -4,28 +4,28 @@ namespace DataStructure
 {
     public class ArrayList
     {
-        public int Lenght { get; private set; }
+        public int Length { get; private set; }
 
         private int[] _array;
         
         public ArrayList()
         {
             _array = new int[9];
-            Lenght = 0;
+            Length = 0;
         }
       
         public ArrayList(int[] array)
         {
             _array = new int[(int) (array.Length * 1.33)];
             Array.Copy(array, _array, array.Length);
-            Lenght = array.Length;
+            Length = array.Length;
         }
 
         public int this[int index]
         {
             get
             {
-                if (index > Lenght - 1 || index < 0)
+                if (index > Length - 1 || index < 0)
                 {
                     throw new IndexOutOfRangeException();
                 }
@@ -34,7 +34,7 @@ namespace DataStructure
             }
             set
             {
-                if (index > Lenght - 1 || index < 0)
+                if (index > Length - 1 || index < 0)
                 {
                     throw new IndexOutOfRangeException();
                 }
@@ -43,15 +43,64 @@ namespace DataStructure
             }
         }
 
+        public void Add(int value)
+        {
+            
+            if (_array.Length <= Length)
+            {
+                IncreaseLenght();
+            }
+            _array[Length] = value;
+            Length++;
+
+        }
+        
+        public void Add(int[] values)
+        {
+            if (_array.Length <= Length+values.Length)
+            {
+                IncreaseLenght(values.Length);
+            }
+            
+            for (int i = 0; i < values.Length; i++)
+            {
+                _array[Length] = values[i];
+                Length++;
+            }
+        }
+        public void AddToBegin(int value)
+        {
+            ShiftкRight();
+            _array[0] = value;
+            Length++;
+        }
+        
+        public void AddToBegin(int[] values)
+        {
+            if (values.Length == 0)
+            {
+                throw new NullReferenceException("The number of elements in the values cannot be zero.");
+            }
+            ShiftкRight(values.Length);
+    
+            int tmp = 0;
+            for (int i = 0; i < values.Length; i++)
+            {
+                _array[tmp] = values[i];
+                Length++;
+                tmp++;
+            }
+        }
+        
         public int GetMax()
         {
-            if (Lenght == 0)
+            if (Length == 0)
             {
                 throw new NullReferenceException("The list cannot be empty.");
             }
             int max = _array[0];
             
-            for (int i = 0; i < Lenght; i++)
+            for (int i = 0; i < Length; i++)
             {
                 if (_array[i] > max)
                 {
@@ -64,13 +113,13 @@ namespace DataStructure
         
         public int GetMin()
         {
-            if (Lenght == 0)
+            if (Length == 0)
             {
                 throw new NullReferenceException("The list cannot be empty.");
             }
             int min = _array[0];
             
-            for (int i = 0; i < Lenght; i++)
+            for (int i = 0; i < Length; i++)
             {
                 if (_array[i] < min)
                 {
@@ -83,13 +132,13 @@ namespace DataStructure
         
         public int GetMaxIndex()
         {
-            if (Lenght == 0)
+            if (Length == 0)
             {
                 throw new NullReferenceException("The list cannot be empty.");
             }
             int tmp = _array[0];
             int maxIndex = 0;
-            for (int i = 0; i < Lenght; i++)
+            for (int i = 0; i < Length; i++)
             {
                 if (_array[i] > tmp)
                 {
@@ -103,13 +152,13 @@ namespace DataStructure
         
         public int GetMinIndex()
         {
-            if (Lenght == 0)
+            if (Length == 0)
             {
                 throw new NullReferenceException("The list cannot be empty.");
             }
             int tmp = _array[0];
             int minIndex = 0;
-            for (int i = 0; i < Lenght; i++)
+            for (int i = 0; i < Length; i++)
             {
                 if (_array[i] < tmp)
                 {
@@ -123,7 +172,7 @@ namespace DataStructure
     
         public void SortAscending()
         {
-            for (int i = 1; i < Lenght; i++)
+            for (int i = 1; i < Length; i++)
             {
                 int cur = _array[i];
                 int j = i;
@@ -138,7 +187,7 @@ namespace DataStructure
         
         public void SortDescending()
         {
-            for (int i = 1; i < Lenght; i++)
+            for (int i = 1; i < Length; i++)
             {
                 int cur = _array[i];
                 int j = i;
@@ -153,37 +202,27 @@ namespace DataStructure
         
         public void Reverse()
         {
-            for (int i = 0; i < Lenght / 2; i++)
+            for (int i = 0; i < Length / 2; i++)
             {
                 int a = _array[i];
-                _array[i] = _array[Lenght - 1 - i];
-                _array[Lenght - 1 - i] = a;
+                _array[i] = _array[Length - 1 - i];
+                _array[Length - 1 - i] = a;
             }
         }
 
-
-        public void Add(int value)
-        {
-            if (_array.Length <= Lenght)
-            {
-                IncreaseLenght();
-            }
-
-            _array[Lenght] = value;
-            Lenght++;
-        }
+        
 
         public override bool Equals(object obj)
         {
             ArrayList arrayList = (ArrayList) obj;
 
-            if (Lenght != arrayList.Lenght)
+            if (Length != arrayList.Length)
             {
                 return false;
             }
             else
             {
-                for (int i = 0; i < Lenght; i++)
+                for (int i = 0; i < Length; i++)
                 {
                     if (_array[i] != arrayList._array[i])
                     {
@@ -200,10 +239,25 @@ namespace DataStructure
             return base.GetHashCode();
         }
 
+        public override string ToString()
+        {
+            if (Length == 0)
+            {
+                return "";
+            }
+            string values = "";
+            for (int i = 0; i < Length; i++)
+            {
+                values += _array[i] + "; ";
+            }
+
+            return values;
+        }
+
         private void IncreaseLenght(int number = 1)
         {
             int newLenght = _array.Length;
-            while (newLenght <= Lenght + number)
+            while (newLenght <= Length + number)
             {
                 newLenght = (int) (newLenght * 1.33 + 1);
             }
@@ -212,6 +266,24 @@ namespace DataStructure
             Array.Copy(_array, newArray, _array.Length);
 
             _array = newArray;
+        }
+        
+        private void ShiftкRight(int count=1)
+        {
+            if (count < 1)
+            {
+                throw new IndexOutOfRangeException("The count must be positive.");
+            }
+            if (_array.Length + count >= Length)
+            {
+                IncreaseLenght(count);
+            }
+            
+            for (int i = Length-1; i >= 0; i--)
+            {
+                _array[i+count] = _array[i];
+            }
+            
         }
     }
 }
