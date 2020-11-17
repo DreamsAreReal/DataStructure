@@ -142,6 +142,36 @@ namespace DataStructure.Test
                 arrayList.GetMin();
             });
         }
+
+        [TestCase(new int[]{1,2,5,6}, new int[]{1,2,5,6})]
+        [TestCase(new int[]{1,1,1,1}, new int[]{1,1,1,1})]
+        [TestCase(new int[]{1}, new int[]{1})]
+        [TestCase(new int[]{}, new int[]{})]
+        [TestCase(new int[]{-1,8,0}, new int[]{-1,0,8})]
+        [TestCase(new int[]{-1,0,0}, new int[]{-1,0,0})]
+        [TestCase(new int[]{99,1,0}, new int[]{0,1,99})]
+        public void SortAscendingTest(int[] arr, int[] expectedArr)
+        {
+            ArrayList actual = new ArrayList(arr);
+            ArrayList expected = new ArrayList(expectedArr);
+            actual.SortAscending();
+            Assert.AreEqual(expected, actual);
+        }
+        
+        [TestCase(new int[]{1,2,5,6}, new int[]{6,5,2,1})]
+        [TestCase(new int[]{1,1,1,1}, new int[]{1,1,1,1})]
+        [TestCase(new int[]{1}, new int[]{1})]
+        [TestCase(new int[]{}, new int[]{})]
+        [TestCase(new int[]{-1,8,0}, new int[]{8,0,-1})]
+        [TestCase(new int[]{-1,0,0}, new int[]{0,0,-1})]
+        [TestCase(new int[]{99,1,0}, new int[]{99,1,0})]
+        public void SortDescendingTest(int[] arr, int[] expectedArr)
+        {
+            ArrayList actual = new ArrayList(arr);
+            ArrayList expected = new ArrayList(expectedArr);
+            actual.SortDescending();
+            Assert.AreEqual(expected, actual);
+        }
         
     }
 }

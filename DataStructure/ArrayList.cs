@@ -80,6 +80,36 @@ namespace DataStructure
 
             return max;
         }
+
+        public void SortAscending()
+        {
+            for (int i = 1; i < Lenght; i++)
+            {
+                int cur = _array[i];
+                int j = i;
+                while (j > 0 && cur < _array[j - 1])
+                {
+                    _array[j] = _array[j - 1];
+                    j--;
+                }
+                _array[j] = cur;
+            }
+        }
+        
+        public void SortDescending()
+        {
+            for (int i = 1; i < Lenght; i++)
+            {
+                int cur = _array[i];
+                int j = i;
+                while (j > 0 && cur > _array[j - 1])
+                {
+                    _array[j] = _array[j - 1];
+                    j--;
+                }
+                _array[j] = cur;
+            }
+        }
         
         public void Reverse()
         {
