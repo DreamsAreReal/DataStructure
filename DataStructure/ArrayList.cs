@@ -48,7 +48,7 @@ namespace DataStructure
             
             if (_array.Length <= Length)
             {
-                IncreaseLenght();
+                IncreaseLength();
             }
             _array[Length] = value;
             Length++;
@@ -59,7 +59,7 @@ namespace DataStructure
         {
             if (_array.Length <= Length+values.Length)
             {
-                IncreaseLenght(values.Length);
+                IncreaseLength(values.Length);
             }
             
             for (int i = 0; i < values.Length; i++)
@@ -68,9 +68,10 @@ namespace DataStructure
                 Length++;
             }
         }
+        
         public void AddToBegin(int value)
         {
-            ShiftкRight();
+            ShiftToRight();
             _array[0] = value;
             Length++;
         }
@@ -81,7 +82,7 @@ namespace DataStructure
             {
                 throw new NullReferenceException("The number of elements in the values cannot be zero.");
             }
-            ShiftкRight(values.Length);
+            ShiftToRight(values.Length);
     
             int tmp = 0;
             for (int i = 0; i < values.Length; i++)
@@ -199,7 +200,7 @@ namespace DataStructure
                 _array[j] = cur;
             }
         }
-        
+
         public void Reverse()
         {
             for (int i = 0; i < Length / 2; i++)
@@ -209,9 +210,7 @@ namespace DataStructure
                 _array[Length - 1 - i] = a;
             }
         }
-
         
-
         public override bool Equals(object obj)
         {
             ArrayList arrayList = (ArrayList) obj;
@@ -233,12 +232,12 @@ namespace DataStructure
 
             return true;
         }
-
+        
         public override int GetHashCode()
         {
             return base.GetHashCode();
         }
-
+        
         public override string ToString()
         {
             if (Length == 0)
@@ -253,22 +252,22 @@ namespace DataStructure
 
             return values;
         }
-
-        private void IncreaseLenght(int number = 1)
+        
+        private void IncreaseLength(int number = 1)
         {
-            int newLenght = _array.Length;
-            while (newLenght <= Length + number)
+            int newLength = _array.Length;
+            while (newLength <= Length + number)
             {
-                newLenght = (int) (newLenght * 1.33 + 1);
+                newLength = (int) (newLength * 1.33 + 1);
             }
 
-            int[] newArray = new int[newLenght];
+            int[] newArray = new int[newLength];
             Array.Copy(_array, newArray, _array.Length);
 
             _array = newArray;
         }
         
-        private void ShiftкRight(int count=1)
+        private void ShiftToRight(int count=1)
         {
             if (count < 1)
             {
@@ -276,7 +275,7 @@ namespace DataStructure
             }
             if (_array.Length + count >= Length)
             {
-                IncreaseLenght(count);
+                IncreaseLength(count);
             }
             
             for (int i = Length-1; i >= 0; i--)
