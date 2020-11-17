@@ -92,6 +92,38 @@ namespace DataStructure
                 tmp++;
             }
         }
+
+        public void AddToIndex(int index, int value)
+        {
+            if (index >= Length)
+            {
+                throw new IndexOutOfRangeException("Index cannot be greater than length.");
+            }
+            ShiftToRight(1,index);
+            Length++;
+            _array[index] = value;
+        }
+        public void AddToIndex(int index, int[] values)
+        {
+            if (index >= Length)
+            {
+                throw new IndexOutOfRangeException("Index cannot be greater than length.");
+            }
+            
+            if (values.Length == 0)
+            {
+                throw new NullReferenceException("The number of elements in the values cannot be zero.");
+            }
+            
+            ShiftToRight(values.Length,index);
+            int tmp = index;
+            for (int i = 0; i < values.Length; i++)
+            {
+                _array[tmp] = values[i];
+                Length++;
+                tmp++;
+            }
+        }
         
         public int GetMax()
         {
@@ -267,7 +299,7 @@ namespace DataStructure
             _array = newArray;
         }
         
-        private void ShiftToRight(int count=1)
+        private void ShiftToRight(int count=1, int begin = 0)
         {
             if (count < 1)
             {
@@ -278,7 +310,7 @@ namespace DataStructure
                 IncreaseLength(count);
             }
             
-            for (int i = Length-1; i >= 0; i--)
+            for (int i = Length-1; i >= begin; i--)
             {
                 _array[i+count] = _array[i];
             }

@@ -68,6 +68,55 @@ namespace DataStructure.Test
                 actual.AddToBegin(values);
             });
         }
+        
+        [TestCase(new int[] {1,2,3}, new int[] {1,3,2,3},3, 1)]
+        [TestCase(new int[] {5,5}, new int[] {5,3,5},3, 1)]
+        [TestCase(new int[] {5}, new int[] {3,5},3, 0)]
+        [TestCase(new int[] {5,5}, new int[] {3,5,5},3, 0)]
+        [TestCase(new int[] {5,5,7,6}, new int[] {5,5,8,7,6},8, 2)]
+        [TestCase(new int[] {5,5,7,6}, new int[] {5,5,7,8,6},8, 3)]
+        public void AddToIndexTest(int[] arr, int[] expectedArr, int value, int index)
+        {
+            ArrayList actual = new ArrayList(arr);
+            ArrayList expected = new ArrayList(expectedArr);
+            actual.AddToIndex(index, value);
+            Assert.AreEqual(expected, actual);
+        }
+        
+        [TestCase(new int[] {1}, new int[] {1,2,3,1},new int[] {1,2,3}, 0)]
+        [TestCase(new int[] {1,1,1}, new int[] {1,1,2,3,1,1},new int[] {1,2,3}, 1)]
+        [TestCase(new int[] {1,1,1}, new int[] {1,1,1,2,3,1},new int[] {1,2,3}, 2)]
+        [TestCase(new int[] {1,1,1,1}, new int[] {1,1,2,3,1,1,1},new int[] {1,2,3}, 1)]
+        public void AddToIndexTest(int[] arr, int[] expectedArr, int[] values, int index)
+        {
+            ArrayList actual = new ArrayList(arr);
+            ArrayList expected = new ArrayList(expectedArr);
+            actual.AddToIndex(index, values);
+            Assert.AreEqual(expected, actual);
+        }
+        
+        [TestCase(new int[] {5,5}, 6)]
+        [TestCase(new int[] {5,5},  -1)]
+        [TestCase(new int[] {5,5}, 2)]
+        [TestCase(new int[] {},  0)]
+        public void AddToIndexNegativeTest(int[] arr, int index)
+        {
+            ArrayList actual = new ArrayList(arr);
+            Assert.Throws<IndexOutOfRangeException>(() =>
+            {
+                actual.AddToIndex(index, 0);
+            });
+        }
+        
+        [TestCase(new int[] {1},  new int[] {})]
+        public void AddToIndexNegativeTest(int[] arr, int[] values)
+        {
+            ArrayList actual = new ArrayList(arr);
+            Assert.Throws<NullReferenceException>(() =>
+            {
+                actual.AddToIndex(0, values);
+            });
+        }
 
         [TestCase(new int[] {1, 2, 3}, new int[] {3, 2, 1})]
         [TestCase(new int[] {1, 1, 1}, new int[] {1, 1, 1})]
@@ -108,9 +157,7 @@ namespace DataStructure.Test
                 int a = actual[index];
             });
         }
-
-
-
+        
         [TestCase(new int[] {5, 6, 7}, 0, 31, new int[] {31, 6, 7})]
         [TestCase(new int[] {5, 6, 7}, 2, 2, new int[] {5, 6, 2})]
         [TestCase(new int[] {5, 6, 7}, 1, 31, new int[] {5, 31, 7})]
@@ -149,8 +196,7 @@ namespace DataStructure.Test
             int actual = arraylist.GetMaxIndex();
             Assert.AreEqual(expected, actual);
         }
-
-
+        
         [TestCase(new int[] { })]
         public void GetMaxIndexNegativeTest(int[] arr)
         {
