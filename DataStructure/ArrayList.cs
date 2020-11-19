@@ -7,7 +7,7 @@ namespace DataStructure
         public int Length { get; private set; }
 
         private int[] _array;
-        
+
         public ArrayList()
         {
             _array = new int[9];
@@ -103,6 +103,7 @@ namespace DataStructure
             Length++;
             _array[index] = value;
         }
+        
         public void AddToIndex(int index, int[] values)
         {
             if (index >= Length)
@@ -124,7 +125,25 @@ namespace DataStructure
                 tmp++;
             }
         }
-        
+
+        public void Delete(int count = 1)
+        {
+            if (Length == 0 || count>Length)
+            {
+                throw new IndexOutOfRangeException("Length must be greater than zero.");
+            }
+
+            for (int i = 1; i <= count; i++)
+            {
+                _array[Length-1] = 0;
+                Length--;
+            }
+            if (Length*1.33 < _array.Length)
+            {
+                ReducingLength();
+            }
+        }
+
         public int GetMax()
         {
             if (Length == 0)
@@ -282,7 +301,7 @@ namespace DataStructure
                 values += _array[i] + "; ";
             }
 
-            return values;
+            return values + " Length" + Length;
         }
         
         private void IncreaseLength(int number = 1)
@@ -297,6 +316,21 @@ namespace DataStructure
             Array.Copy(_array, newArray, _array.Length);
 
             _array = newArray;
+        }
+
+        private void ReducingLength()
+        {
+            int newLength = 0;
+            while (newLength <= Length)
+            {
+                newLength = (int) (newLength * 1.33 + 1);
+            }
+
+            int[] newArray = new int[newLength];
+            Array.Copy(_array, newArray, Length);
+
+            _array = newArray;
+
         }
         
         private void ShiftToRight(int count=1, int begin = 0)
