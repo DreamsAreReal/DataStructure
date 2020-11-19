@@ -128,7 +128,7 @@ namespace DataStructure
 
         public void Delete(int count = 1)
         {
-            if (Length == 0 || count>Length)
+            if (Length == 0)
             {
                 throw new IndexOutOfRangeException("Length must be greater than zero.");
             }
@@ -147,7 +147,7 @@ namespace DataStructure
         
         public void DeleteFromBegin(int count = 1)
         {
-            if (Length == 0 || count>Length)
+            if (Length == 0)
             {
                 throw new IndexOutOfRangeException("Length must be greater than zero.");
             }
@@ -160,6 +160,27 @@ namespace DataStructure
             
             Length-=count;
             ShiftToLeft(count, 0);
+            if (Length*1.33 < _array.Length)
+            {
+                ReducingLength();
+            }
+        }
+        
+        public void DeleteByIndex(int index, int count = 1)
+        {
+            if (Length == 0)
+            {
+                throw new IndexOutOfRangeException("Length must be greater than zero.");
+            }
+            
+            if (count>Length)
+            {
+                throw new IndexOutOfRangeException("Count must be greater than length.");
+            }
+
+            
+            Length-=count;
+            ShiftToLeft(count, index);
             if (Length*1.33 < _array.Length)
             {
                 ReducingLength();
@@ -379,12 +400,7 @@ namespace DataStructure
             {
                 throw new IndexOutOfRangeException("The quantity must be greater than zero.");
             }
-            
-            if (count<begin)
-            {
-                throw new IndexOutOfRangeException("The begin should not be more than the count.");
-            }
-            
+
             for (int i = begin; i < Length; i++)
             {
                 _array[i] = _array[i+count];
