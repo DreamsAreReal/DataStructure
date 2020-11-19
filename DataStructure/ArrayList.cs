@@ -132,12 +132,34 @@ namespace DataStructure
             {
                 throw new IndexOutOfRangeException("Length must be greater than zero.");
             }
-
-            for (int i = 1; i <= count; i++)
+            
+            if (count>Length)
             {
-                _array[Length-1] = 0;
-                Length--;
+                throw new IndexOutOfRangeException("Count must be greater than length.");
             }
+
+            Length -= count;
+            if (Length*1.33 < _array.Length)
+            {
+                ReducingLength();
+            }
+        }
+        
+        public void DeleteToBegin(int count = 1)
+        {
+            if (Length == 0 || count>Length)
+            {
+                throw new IndexOutOfRangeException("Length must be greater than zero.");
+            }
+            
+            if (count>Length)
+            {
+                throw new IndexOutOfRangeException("Count must be greater than length.");
+            }
+
+            
+            Length-=count;
+            ShiftToLeft(count, 0);
             if (Length*1.33 < _array.Length)
             {
                 ReducingLength();
@@ -337,7 +359,7 @@ namespace DataStructure
         {
             if (count < 1)
             {
-                throw new IndexOutOfRangeException("The count must be positive.");
+                throw new IndexOutOfRangeException("The quantity must be greater than zero.");
             }
             if (_array.Length + count >= Length)
             {
@@ -349,6 +371,26 @@ namespace DataStructure
                 _array[i+count] = _array[i];
             }
             
+        }
+
+        private void ShiftToLeft(int count=1, int begin = 0)
+        {
+            if (count < 1)
+            {
+                throw new IndexOutOfRangeException("The quantity must be greater than zero.");
+            }
+            
+            if (count<begin)
+            {
+                throw new IndexOutOfRangeException("The begin should not be more than the count.");
+            }
+            
+            for (int i = begin; i < Length; i++)
+            {
+                _array[i] = _array[i+count];
+            }
+            
+
         }
     }
 }
