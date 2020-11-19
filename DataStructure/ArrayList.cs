@@ -145,7 +145,7 @@ namespace DataStructure
             }
         }
         
-        public void DeleteToBegin(int count = 1)
+        public void DeleteFromBegin(int count = 1)
         {
             if (Length == 0 || count>Length)
             {

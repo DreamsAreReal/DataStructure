@@ -166,22 +166,22 @@ namespace DataStructure.Test
         [TestCase(new int[] {1,2}, new int[] {2}, 1)]
         [TestCase(new int[] {1,2}, new int[] {}, 2)]
         [TestCase(new int[] {1,2,3,4,5,6,7,8,9}, new int[] {}, 9)]
-        public void DeleteToBeginTest(int[] actualArr, int[] expectedArr, int count)
+        public void DeleteFromBeginTest(int[] actualArr, int[] expectedArr, int count)
         {
             ArrayList actual = new ArrayList(actualArr);
             ArrayList expected = new ArrayList(expectedArr);
-            actual.DeleteToBegin(count);
+            actual.DeleteFromBegin(count);
             Assert.AreEqual(expected,actual);
         }
         
         [TestCase(new int[] {}, 1)]
         [TestCase(new int[] {1,2,3}, 6)]
-        public void DeleteToBeginNegativeTest(int[] actualArr, int count)
+        public void DeleteFromBeginNegativeTest(int[] actualArr, int count)
         {
             ArrayList actual = new ArrayList(actualArr);
             Assert.Throws<IndexOutOfRangeException>(() =>
             {
-                actual.DeleteToBegin(count);
+                actual.DeleteFromBegin(count);
             });
         }
         
