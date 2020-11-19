@@ -176,7 +176,7 @@ namespace DataStructure.Test
         
         [TestCase(new int[] {}, 1)]
         [TestCase(new int[] {1,2,3}, 6)]
-        public void DeleteToBegineNegativeTest(int[] actualArr, int count)
+        public void DeleteToBeginNegativeTest(int[] actualArr, int count)
         {
             ArrayList actual = new ArrayList(actualArr);
             Assert.Throws<IndexOutOfRangeException>(() =>
