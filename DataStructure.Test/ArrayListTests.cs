@@ -207,6 +207,34 @@ namespace DataStructure.Test
                 actual.DeleteFromBegin(count);
             });
         }
+
+        [TestCase(new int[] {1,2,3}, new int[] {1,2}, 3 )]
+        [TestCase(new int[] {1,2,3}, new int[] {1,3}, 2 )]
+        [TestCase(new int[] {2,3}, new int[] {2,3}, 1 )]
+        [TestCase(new int[] {2}, new int[] {}, 2 )]
+        [TestCase(new int[] {5,5,5,5}, new int[] {5,5,5}, 5 )]
+        [TestCase(new int[] {}, new int[] {}, 0 )]
+        public void DeleteByValueTest(int[] actualArr, int[] expectedArr, int value)
+        {
+            ArrayList actual = new ArrayList(actualArr);
+            ArrayList expected = new ArrayList(expectedArr);
+            actual.DeleteByValue(value);
+            Assert.AreEqual(expected,actual);
+        }
+        
+        [TestCase(new int[] {1,2,3,3,3}, new int[] {1,2}, 3 )]
+        [TestCase(new int[] {2,1,2,3,2}, new int[] {1,3}, 2 )]
+        [TestCase(new int[] {2,3}, new int[] {2,3}, 1 )]
+        [TestCase(new int[] {2,2,2,2,2}, new int[] {}, 2 )]
+        [TestCase(new int[] {5,5,5,5}, new int[] {}, 5 )]
+        [TestCase(new int[] {}, new int[] {}, 5 )]
+        public void DeleteAllByValueTest(int[] actualArr, int[] expectedArr, int value)
+        {
+            ArrayList actual = new ArrayList(actualArr);
+            ArrayList expected = new ArrayList(expectedArr);
+            actual.DeleteAllByValue(value);
+            Assert.AreEqual(expected,actual);
+        }
         
         [TestCase(new int[] {1, 2, 3}, new int[] {3, 2, 1})]
         [TestCase(new int[] {1, 1, 1}, new int[] {1, 1, 1})]

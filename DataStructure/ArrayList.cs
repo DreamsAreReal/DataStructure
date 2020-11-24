@@ -13,6 +13,11 @@ namespace DataStructure
             _array = new int[9];
             Length = 0;
         }
+        public ArrayList(int value)
+        {
+            _array = new int[1] { value };
+            Length = 1;
+        }
       
         public ArrayList(int[] array)
         {
@@ -160,6 +165,7 @@ namespace DataStructure
             
             Length-=count;
             ShiftToLeft(count, 0);
+            
             if (Length*1.33 < _array.Length)
             {
                 ReducingLength();
@@ -184,6 +190,34 @@ namespace DataStructure
             if (Length*1.33 < _array.Length)
             {
                 ReducingLength();
+            }
+        }
+
+        public void DeleteByValue(int value)
+        {
+            for (int i = 0; i < Length; i++)
+            {
+                if (_array[i] == value)
+                {
+                    Length--;
+                    ShiftToLeft(1,i);
+                    
+                    
+                    break;
+                }
+            }
+        }
+        
+        public void DeleteAllByValue(int value)
+        {
+            for (int i = 0; i < Length; i++)
+            {
+                if (_array[i] == value)
+                {
+                    Length--;
+                    ShiftToLeft(1,i);
+                    i--;
+                }
             }
         }
 
@@ -401,10 +435,13 @@ namespace DataStructure
                 throw new IndexOutOfRangeException("The quantity must be greater than zero.");
             }
 
+            
             for (int i = begin; i < Length; i++)
             {
                 _array[i] = _array[i+count];
             }
+            
+            
             
 
         }
