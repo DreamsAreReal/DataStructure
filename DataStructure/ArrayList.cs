@@ -2,7 +2,7 @@
 
 namespace DataStructure
 {
-    public class ArrayList
+    public class ArrayList : IDataStructure
     {
         public int Length { get; private set; }
 
