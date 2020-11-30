@@ -300,7 +300,22 @@ namespace DataStructure.LinkedList
 
         public void Reverse()
         {
-            throw new NotImplementedException();
+            if (Length<=0)
+            {
+                throw new NullReferenceException("List length can't be zerro");
+            }
+            
+            Node curr = _root;
+            Node prev = null;
+            while (curr.Next != null)
+            {
+                Node next = curr.Next;
+                curr.Next = prev;
+                prev = curr;
+                curr = next;
+            }
+            curr.Next = prev;
+            _root = curr;
         }
         
         public override bool Equals(object obj)

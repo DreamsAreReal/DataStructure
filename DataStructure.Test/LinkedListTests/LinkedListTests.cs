@@ -216,5 +216,30 @@ namespace DataStructure.Test.LinkedListTests
             actual.SortDescending();
             Assert.AreEqual(expected, actual);
         }
+        
+        [TestCase(new int[] {3,2,1}, new int[] {1,2,3})]
+        [TestCase(new int[] {2,3,1}, new int[] {1,3,2})]
+        [TestCase(new int[] {1,3,2}, new int[] {2,3,1})]
+        [TestCase(new int[] {1}, new int[] {1})]
+        [TestCase(new int[] {1,1,1}, new int[] {1,1,1})]
+        public void ReverseTests(int[] arr, int[] expectedArr)
+        {
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
+            LinkedList.LinkedList expected = new LinkedList.LinkedList(expectedArr);
+            actual.Reverse();
+            Assert.AreEqual(expected, actual);
+        }
+        
+        [TestCase(new int[] {})]
+        public void ReverseTests(int[] arr)
+        {
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
+
+            Assert.Throws<NullReferenceException>(() =>
+            {
+                actual.Reverse();
+            });
+
+        }
     }
 }
