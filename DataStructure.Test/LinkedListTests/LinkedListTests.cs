@@ -188,5 +188,33 @@ namespace DataStructure.Test.LinkedListTests
 
             Assert.Throws<NullReferenceException>(() => { actualList.GetMinIndex(); });
         }
+
+        [TestCase(new int[] {3,2,1}, new int[] {1,2,3})]
+        [TestCase(new int[] {2,3,1}, new int[] {1,2,3})]
+        [TestCase(new int[] {1,3,2}, new int[] {1,2,3})]
+        [TestCase(new int[] {1}, new int[] {1})]
+        [TestCase(new int[] {1,1,1}, new int[] {1,1,1})]
+        [TestCase(new int[] {}, new int[] {})]
+        public void SortAscendingTests(int[] arr, int[] expectedArr)
+        {
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
+            LinkedList.LinkedList expected = new LinkedList.LinkedList(expectedArr);
+            actual.SortAscending();
+            Assert.AreEqual(expected, actual);
+        }
+        
+        [TestCase(new int[] {3,2,1}, new int[] {3,2,1})]
+        [TestCase(new int[] {2,3,1}, new int[] {3,2,1})]
+        [TestCase(new int[] {1,3,2}, new int[] {3,2,1})]
+        [TestCase(new int[] {1}, new int[] {1})]
+        [TestCase(new int[] {1,1,1}, new int[] {1,1,1})]
+        [TestCase(new int[] {}, new int[] {})]
+        public void SortDescendingTests(int[] arr, int[] expectedArr)
+        {
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
+            LinkedList.LinkedList expected = new LinkedList.LinkedList(expectedArr);
+            actual.SortDescending();
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

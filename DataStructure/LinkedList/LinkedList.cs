@@ -264,12 +264,38 @@ namespace DataStructure.LinkedList
 
         public void SortAscending()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < Length; i++)
+            {
+                Node curr = _root;
+                for (int j = 1; j < Length - i; j++)
+                {
+                    if (curr.Value > curr.Next.Value)
+                    {
+                        int tmp = curr.Next.Value;
+                        curr.Next.Value = curr.Value;
+                        curr.Value = tmp;
+                    }
+                    curr = curr.Next;
+                }
+            }
         }
 
         public void SortDescending()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < Length; i++)
+            {
+                Node curr = _root;
+                for (int j = 1; j < Length - i; j++)
+                {
+                    if (curr.Value < curr.Next.Value)
+                    {
+                        int tmp = curr.Next.Value;
+                        curr.Next.Value = curr.Value;
+                        curr.Value = tmp;
+                    }
+                    curr = curr.Next;
+                }
+            }
         }
 
         public void Reverse()
@@ -305,10 +331,10 @@ namespace DataStructure.LinkedList
             string text = "";
 
             Node tmp = _root;
-            for (int i = 0; i < Length-1; i++)
+            for (int i = 0; i < Length; i++)
             {
                 text += tmp.Value + ";";
-                tmp = tmp.Next;
+                tmp = tmp?.Next;
             }
             return text;
         }
