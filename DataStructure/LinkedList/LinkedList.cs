@@ -182,12 +182,72 @@ namespace DataStructure.LinkedList
 
         public void DeleteByValue(int value)
         {
-            throw new NotImplementedException();
+            if (_root == null)
+            {
+                throw new NullReferenceException("List length can't be null");
+            }
+
+            Node curr = _root;
+            Node prev = null;
+            for (int i = 0; i < Length; i++)
+            {
+                
+                if (curr.Value == value)
+                {
+                    if (prev == null)
+                    {
+                        _root = curr.Next;
+                    }
+                    else
+                    {
+                        prev.Next = curr.Next;
+                    }
+                    Length--;
+                    break;
+                }
+
+                prev = curr;
+                curr = curr.Next;
+                
+            }
         }
 
         public void DeleteAllByValue(int value)
         {
-            throw new NotImplementedException();
+            if (_root == null)
+            {
+                throw new NullReferenceException("List length can't be null");
+            }
+
+            Node prev = null;
+            Node curr = _root;
+            while (curr != null)
+            {
+                if (curr.Value == value)
+                {
+                    if (prev == null)
+                    {
+                        _root = curr.Next;
+                        Length--;
+                    }
+                    else
+                    {
+                        prev.Next = curr.Next;
+                        Length--;
+                    }
+                    
+                }
+                else
+                {
+                    prev = curr;
+                }
+                curr = curr.Next;
+            }
+            
+            
+            
+
+
         }
 
         public int GetMax()

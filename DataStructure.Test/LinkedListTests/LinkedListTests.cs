@@ -231,7 +231,7 @@ namespace DataStructure.Test.LinkedListTests
         }
         
         [TestCase(new int[] {})]
-        public void ReverseTests(int[] arr)
+        public void ReverseNegativeTests(int[] arr)
         {
             LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
 
@@ -240,6 +240,64 @@ namespace DataStructure.Test.LinkedListTests
                 actual.Reverse();
             });
 
+        }
+
+        [TestCase(new int[] {1,2,3,4}, new int[]{1,2,3}, 4)]
+        [TestCase(new int[] {1,2,3,4}, new int[]{2,3,4}, 1)]
+        [TestCase(new int[] {1,2,3,4}, new int[]{1,3,4}, 2)]
+        [TestCase(new int[] {1,2,3,4}, new int[]{1,2,4}, 3)]
+        [TestCase(new int[] {4,3,2,1}, new int[]{3,2,1}, 4)]
+        [TestCase(new int[] {4,3,2,1}, new int[]{4,2,1}, 3)]
+        [TestCase(new int[] {4,3,2,1}, new int[]{4,3,1}, 2)]
+        [TestCase(new int[] {4,3,2,1}, new int[]{4,3,2}, 1)]
+        [TestCase(new int[] {1}, new int[]{}, 1)]
+        [TestCase(new int[] {1,1,1}, new int[]{1,1}, 1)]
+        public void DeleteByValueTests(int[] arr, int[] expectedArr, int value)
+        {
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
+            LinkedList.LinkedList expected = new LinkedList.LinkedList(expectedArr);
+            actual.DeleteByValue(value);
+            Assert.AreEqual(expected,actual);
+        }
+        
+        [TestCase(new int[] {})]
+        public void DeleteByValueNegativeTests(int[] arr)
+        {
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
+
+            Assert.Throws<NullReferenceException>((() =>
+            {
+                actual.DeleteByValue(1);
+            }));
+        }
+        
+        
+        [TestCase(new int[] {1,1,3,4}, new int[]{3,4}, 1)]
+        [TestCase(new int[] {1,2,1,4,1,5, 1}, new int[]{2,4,5}, 1)]
+        [TestCase(new int[] {1,1,1,1}, new int[]{}, 1)]
+        [TestCase(new int[] {1,3,2,1}, new int[]{3,2}, 1)]
+        [TestCase(new int[] {4,3,1,1}, new int[]{4,3}, 1)]
+        [TestCase(new int[] {1,3,2,1}, new int[]{3,2}, 1)]
+        [TestCase(new int[] {4,3,2,1}, new int[]{4,3,2}, 1)]
+        [TestCase(new int[] {1}, new int[]{}, 1)]
+        [TestCase(new int[] {1,2,1}, new int[]{2}, 1)]
+        public void DeleteByAllValueTests(int[] arr, int[] expectedArr, int value)
+        {
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
+            LinkedList.LinkedList expected = new LinkedList.LinkedList(expectedArr);
+            actual.DeleteAllByValue(value);
+            Assert.AreEqual(expected,actual);
+        }
+        
+        [TestCase(new int[] {})]
+        public void DeleteAllByValueNegativeTests(int[] arr)
+        {
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
+
+            Assert.Throws<NullReferenceException>((() =>
+            {
+                actual.DeleteAllByValue(1);
+            }));
         }
     }
 }
