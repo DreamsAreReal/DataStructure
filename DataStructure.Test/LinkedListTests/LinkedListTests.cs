@@ -20,8 +20,8 @@ namespace DataStructure.Test.LinkedListTests
         }
 
         [TestCase(new int[] {1}, 1)]
-        [TestCase(new int[] {}, 0)]
-        [TestCase(new int[] {1,2}, -1)]
+        [TestCase(new int[] { }, 0)]
+        [TestCase(new int[] {1, 2}, -1)]
         public void GetByIndexNegativeTests(int[] arr, int index)
         {
             LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
@@ -44,17 +44,14 @@ namespace DataStructure.Test.LinkedListTests
 
             Assert.AreEqual(expected, actual);
         }
-        
+
         [TestCase(new int[] {1}, 1)]
-        [TestCase(new int[] {}, 0)]
-        [TestCase(new int[] {1,2}, -1)]
+        [TestCase(new int[] { }, 0)]
+        [TestCase(new int[] {1, 2}, -1)]
         public void SetByIndexNegativeTests(int[] arr, int index)
         {
             LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
-            Assert.Throws<IndexOutOfRangeException>(() =>
-            {
-                actual[index] = 1;
-            });
+            Assert.Throws<IndexOutOfRangeException>(() => { actual[index] = 1; });
         }
 
         [TestCase(new int[] {1, 2, 3, 4, 5}, 0, int.MaxValue, new int[] {int.MaxValue, 1, 2, 3, 4, 5})]
@@ -72,32 +69,124 @@ namespace DataStructure.Test.LinkedListTests
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCase(new int[] {1}, new int[] {1,2}, 2)]
-        [TestCase(new int[] {}, new int[] {1}, 1)]
-        [TestCase(new int[] {1,2,3,4,5}, new int[] {1,2,3,4,5,6}, 6)]
-        [TestCase(new int[] {9,2,3}, new int[] {9,2,3,6}, 6)]
-        [TestCase(new int[] {9,2,3,6}, new int[] {9,2,3,6,-1}, -1)]
-        [TestCase(new int[] {9,2,3,6,-1}, new int[] {9,2,3,6,-1,7}, 7)]
+        [TestCase(new int[] {1}, new int[] {1, 2}, 2)]
+        [TestCase(new int[] { }, new int[] {1}, 1)]
+        [TestCase(new int[] {1, 2, 3, 4, 5}, new int[] {1, 2, 3, 4, 5, 6}, 6)]
+        [TestCase(new int[] {9, 2, 3}, new int[] {9, 2, 3, 6}, 6)]
+        [TestCase(new int[] {9, 2, 3, 6}, new int[] {9, 2, 3, 6, -1}, -1)]
+        [TestCase(new int[] {9, 2, 3, 6, -1}, new int[] {9, 2, 3, 6, -1, 7}, 7)]
         public void AddTests(int[] arr, int[] expectedArr, int value)
         {
             LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
             LinkedList.LinkedList expected = new LinkedList.LinkedList(expectedArr);
             actual.Add(value);
-            Assert.AreEqual(expected,actual);
+            Assert.AreEqual(expected, actual);
         }
-        
-        [TestCase(new int[] {1}, new int[] {1,2}, new int[] {2})]
-        [TestCase(new int[] {}, new int[] {1}, new int[] {1})]
-        [TestCase(new int[] {}, new int[] {1,2,3,4,5,6}, new int[]{1,2,3,4,5,6})]
-        [TestCase(new int[] {9,2,3}, new int[] {9,2,3,1,77,7}, new int[]{1,77,7})]
-        [TestCase(new int[] {9,2,3,6}, new int[] {9,2,3,6}, new int[]{})]
-        [TestCase(new int[] {9,2,3,6,-1}, new int[] {9,2,3,6,-1,7,8,9}, new int[] {7,8,9})]
+
+        [TestCase(new int[] {1}, new int[] {1, 2}, new int[] {2})]
+        [TestCase(new int[] { }, new int[] {1}, new int[] {1})]
+        [TestCase(new int[] { }, new int[] {1, 2, 3, 4, 5, 6}, new int[] {1, 2, 3, 4, 5, 6})]
+        [TestCase(new int[] {9, 2, 3}, new int[] {9, 2, 3, 1, 77, 7}, new int[] {1, 77, 7})]
+        [TestCase(new int[] {9, 2, 3, 6}, new int[] {9, 2, 3, 6}, new int[] { })]
+        [TestCase(new int[] {9, 2, 3, 6, -1}, new int[] {9, 2, 3, 6, -1, 7, 8, 9}, new int[] {7, 8, 9})]
         public void AddTests(int[] arr, int[] expectedArr, int[] values)
         {
             LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
             LinkedList.LinkedList expected = new LinkedList.LinkedList(expectedArr);
             actual.Add(values);
-            Assert.AreEqual(expected,actual);
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] {1, 2, 3}, 3)]
+        [TestCase(new int[] {1, 3, 2}, 3)]
+        [TestCase(new int[] {3, 1, 2}, 3)]
+        [TestCase(new int[] {3}, 3)]
+        [TestCase(new int[] {3, -1}, 3)]
+        [TestCase(new int[] {-77, -1}, -1)]
+        [TestCase(new int[] {-1, -77}, -1)]
+        [TestCase(new int[] {0, 0, 0}, 0)]
+        public void GetMaxTests(int[] arr, int expected)
+        {
+            LinkedList.LinkedList actualList = new LinkedList.LinkedList(arr);
+            int actual = actualList.GetMax();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { })]
+        public void GetMaxNegativeTests(int[] arr)
+        {
+            LinkedList.LinkedList actualList = new LinkedList.LinkedList(arr);
+
+            Assert.Throws<NullReferenceException>(() => { actualList.GetMax(); });
+        }
+
+        [TestCase(new int[] {1, 2, 3}, 1)]
+        [TestCase(new int[] {1, 3, 2}, 1)]
+        [TestCase(new int[] {3, 1, 2}, 1)]
+        [TestCase(new int[] {3}, 3)]
+        [TestCase(new int[] {3, -1}, -1)]
+        [TestCase(new int[] {-77, -1}, -77)]
+        [TestCase(new int[] {-1, -77}, -77)]
+        [TestCase(new int[] {0, 0, 0}, 0)]
+        public void GetMinTests(int[] arr, int expected)
+        {
+            LinkedList.LinkedList actualList = new LinkedList.LinkedList(arr);
+            int actual = actualList.GetMin();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { })]
+        public void GetMinNegativeTests(int[] arr)
+        {
+            LinkedList.LinkedList actualList = new LinkedList.LinkedList(arr);
+
+            Assert.Throws<NullReferenceException>(() => { actualList.GetMin(); });
+        }
+        
+        [TestCase(new int[] {1, 2, 3}, 2)]
+        [TestCase(new int[] {1, 3, 2}, 1)]
+        [TestCase(new int[] {3, 1, 2}, 0)]
+        [TestCase(new int[] {3}, 0)]
+        [TestCase(new int[] {3, -1}, 0)]
+        [TestCase(new int[] {-77, -1}, 1)]
+        [TestCase(new int[] {-1, -77}, 0)]
+        [TestCase(new int[] {0, 0, 0}, 0)]
+        public void GetMaxIndexTests(int[] arr, int expected)
+        {
+            LinkedList.LinkedList actualList = new LinkedList.LinkedList(arr);
+            int actual = actualList.GetMaxIndex();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { })]
+        public void GetMaxIndexNegativeTests(int[] arr)
+        {
+            LinkedList.LinkedList actualList = new LinkedList.LinkedList(arr);
+
+            Assert.Throws<NullReferenceException>(() => { actualList.GetMaxIndex(); });
+        }
+
+        [TestCase(new int[] {1, 2, 3}, 0)]
+        [TestCase(new int[] {3, 2, 1}, 2)]
+        [TestCase(new int[] {3, 1, 2}, 1)]
+        [TestCase(new int[] {3}, 0)]
+        [TestCase(new int[] {3, -1}, 1)]
+        [TestCase(new int[] {-77, -1}, 0)]
+        [TestCase(new int[] {-1, -77}, 1)]
+        [TestCase(new int[] {0, 0, 0}, 0)]
+        public void GetMinIndexTests(int[] arr, int expected)
+        {
+            LinkedList.LinkedList actualList = new LinkedList.LinkedList(arr);
+            int actual = actualList.GetMinIndex();
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] { })]
+        public void GetMinIndexNegativeTests(int[] arr)
+        {
+            LinkedList.LinkedList actualList = new LinkedList.LinkedList(arr);
+
+            Assert.Throws<NullReferenceException>(() => { actualList.GetMinIndex(); });
         }
     }
 }

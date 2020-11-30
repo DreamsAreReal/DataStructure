@@ -192,22 +192,74 @@ namespace DataStructure.LinkedList
 
         public int GetMax()
         {
-            throw new NotImplementedException();
+            if(_root==null) throw new NullReferenceException("List can't be null");
+            int max = _root.Value;
+            Node tmp = _root;
+            for (int i = 0; i < Length-1; i++)
+            {
+                tmp = tmp.Next;
+                if (max < tmp.Value)
+                {
+                    max = tmp.Value;
+                }
+            }
+
+            return max;
         }
 
         public int GetMin()
         {
-            throw new NotImplementedException();
+            if(_root==null) throw new NullReferenceException("List can't be null");
+            int min = _root.Value;
+            Node tmp = _root;
+            for (int i = 0; i < Length-1; i++)
+            {
+                tmp = tmp.Next;
+                if (min > tmp.Value)
+                {
+                    min = tmp.Value;
+                }
+            }
+
+            return min;
         }
 
         public int GetMaxIndex()
         {
-            throw new NotImplementedException();
+            if(_root==null) throw new NullReferenceException("List can't be null");
+            int max = _root.Value;
+            int maxIndex = 0;
+            Node tmp = _root;
+            for (int i = 0; i < Length-1; i++)
+            {
+                tmp = tmp.Next;
+                if (max < tmp.Value)
+                {
+                    max = tmp.Value;
+                    maxIndex = i+1;
+                }
+            }
+
+            return maxIndex;
         }
 
         public int GetMinIndex()
         {
-            throw new NotImplementedException();
+            if(_root==null) throw new NullReferenceException("List can't be null");
+            int min = _root.Value;
+            int minIndex = 0;
+            Node tmp = _root;
+            for (int i = 0; i < Length-1; i++)
+            {
+                tmp = tmp.Next;
+                if (min > tmp.Value)
+                {
+                    min = tmp.Value;
+                    minIndex = i+1;
+                }
+            }
+
+            return minIndex;
         }
 
         public void SortAscending()
