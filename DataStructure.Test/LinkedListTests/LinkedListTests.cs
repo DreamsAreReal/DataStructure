@@ -71,5 +71,33 @@ namespace DataStructure.Test.LinkedListTests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestCase(new int[] {1}, new int[] {1,2}, 2)]
+        [TestCase(new int[] {}, new int[] {1}, 1)]
+        [TestCase(new int[] {1,2,3,4,5}, new int[] {1,2,3,4,5,6}, 6)]
+        [TestCase(new int[] {9,2,3}, new int[] {9,2,3,6}, 6)]
+        [TestCase(new int[] {9,2,3,6}, new int[] {9,2,3,6,-1}, -1)]
+        [TestCase(new int[] {9,2,3,6,-1}, new int[] {9,2,3,6,-1,7}, 7)]
+        public void AddTests(int[] arr, int[] expectedArr, int value)
+        {
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
+            LinkedList.LinkedList expected = new LinkedList.LinkedList(expectedArr);
+            actual.Add(value);
+            Assert.AreEqual(expected,actual);
+        }
+        
+        [TestCase(new int[] {1}, new int[] {1,2}, new int[] {2})]
+        [TestCase(new int[] {}, new int[] {1}, new int[] {1})]
+        [TestCase(new int[] {}, new int[] {1,2,3,4,5,6}, new int[]{1,2,3,4,5,6})]
+        [TestCase(new int[] {9,2,3}, new int[] {9,2,3,1,77,7}, new int[]{1,77,7})]
+        [TestCase(new int[] {9,2,3,6}, new int[] {9,2,3,6}, new int[]{})]
+        [TestCase(new int[] {9,2,3,6,-1}, new int[] {9,2,3,6,-1,7,8,9}, new int[] {7,8,9})]
+        public void AddTests(int[] arr, int[] expectedArr, int[] values)
+        {
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
+            LinkedList.LinkedList expected = new LinkedList.LinkedList(expectedArr);
+            actual.Add(values);
+            Assert.AreEqual(expected,actual);
+        }
     }
 }

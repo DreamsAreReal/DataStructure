@@ -99,12 +99,50 @@ namespace DataStructure.LinkedList
 
         public void Add(int value)
         {
-            throw new NotImplementedException();
+            if (_root == null)
+            {
+                Node node = new Node(value);
+                _root = node;
+            }
+            else
+            {
+                Node tmp = _root;
+                for (int i = 0; i < Length - 1; i++)
+                {
+                    tmp = tmp.Next;
+                }
+                Node node = new Node(value);
+                tmp.Next = node;
+            }
+            Length++;
         }
 
         public void Add(int[] values)
         {
-            throw new NotImplementedException();
+            if (values.Length == 0) return;
+            int begin = 0;
+            if (_root == null)
+            {
+                _root = new Node(values[0]);
+                begin++;
+            }
+
+            Node tmp = _root;
+            
+            for (int i = 0; i < Length - 1; i++)
+            {
+                tmp = tmp.Next;
+            }
+            
+            for (int i = begin; i < values.Length; i++)
+            {
+                tmp.Next = new Node(values[i]);
+                tmp = tmp.Next;
+            }
+            
+           
+
+            Length += values.Length;
         }
 
         public void AddToBegin(int value)
@@ -215,7 +253,7 @@ namespace DataStructure.LinkedList
             string text = "";
 
             Node tmp = _root;
-            for (int i = 0; i < Length; i++)
+            for (int i = 0; i < Length-1; i++)
             {
                 text += tmp.Value + ";";
                 tmp = tmp.Next;
