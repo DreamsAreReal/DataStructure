@@ -74,34 +74,7 @@ namespace DataStructure.LinkedList
             }
         }
 
-        public void AddByIndex(int index, int value)
-        {
-            if (index < 0 || index > Length)
-            {
-                throw new IndexOutOfRangeException("Index must be greater than zero and less than length.");
-            }
 
-            if (index != 0)
-            {
-                Node crnt = _root;
-                for (int i = 0; i < index - 1; i++)
-                {
-                    crnt = crnt.Next;
-                }
-
-                Node tmp = new Node(value);
-                tmp.Next = crnt.Next;
-                crnt.Next = tmp;
-            }
-            else
-            {
-                Node tmp = new Node(value);
-                tmp.Next = _root;
-                _root = tmp;
-            }
-
-            Length++;
-        }
 
         public void Add(int value)
         {
@@ -180,13 +153,49 @@ namespace DataStructure.LinkedList
 
         public void AddToIndex(int index, int value)
         {
-            throw new NotImplementedException();
+            int[] values = {value};
+            AddToIndex(index, values);
         }
 
         public void AddToIndex(int index, int[] values)
         {
-            throw new NotImplementedException();
+            if (index < 0 || index > Length) throw new IndexOutOfRangeException();
+            if (values.Length == 0) throw new NullReferenceException("Values is empty!");
+            if (index != 0)
+            {
+                Node currRoot = _root;
+                Node curr = currRoot;
+                for (int i = 0; i < index - 1; i++)
+                {
+                    curr = curr.Next;
+                }
+                Node currNextNode = curr.Next;
+                Node tmp = new Node(values[0]);
+                curr.Next = tmp;
+                for (int i = 1; i < values.Length; i++)
+                {
+                    tmp.Next = new Node(values[i]);
+                    tmp = tmp.Next;
+                }
+                tmp.Next = currNextNode;
+                Length += values.Length;
+                _root = currRoot;
+            }
+            else
+            {
+                Node tmp = new Node(values[0]);
+                Node curRoot = tmp;
+                for (int i = 1; i < values.Length; i++)
+                {
+                    tmp.Next = new Node(values[i]);
+                    tmp = tmp.Next;
+                }
+                tmp.Next = _root;
+                Length += values.Length;
+                _root = curRoot;
+            }
         }
+
 
         public void Delete(int count = 1)
         {

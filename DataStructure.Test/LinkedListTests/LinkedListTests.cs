@@ -13,7 +13,6 @@ namespace DataStructure.Test.LinkedListTests
         [TestCase(new int[] {1}, 0, new int[] {0, 1})]
         public void AddToBeginTests(int[] array, int value, int[] expectedArr)
         {
-            LinkedList.LinkedList linkedList = new LinkedList.LinkedList(array);
 
             LinkedList.LinkedList actual = new LinkedList.LinkedList(array);
             LinkedList.LinkedList expected = new LinkedList.LinkedList(expectedArr);
@@ -31,7 +30,6 @@ namespace DataStructure.Test.LinkedListTests
         [TestCase(new int[] {1}, new [] {1,2,3}, new int[] {1,2,3,1})]
         public void AddToBeginTests(int[] array, int[] values, int[] expectedArr)
         {
-            LinkedList.LinkedList linkedList = new LinkedList.LinkedList(array);
 
             LinkedList.LinkedList actual = new LinkedList.LinkedList(array);
             LinkedList.LinkedList expected = new LinkedList.LinkedList(expectedArr);
@@ -40,6 +38,53 @@ namespace DataStructure.Test.LinkedListTests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestCase(new int[] {}, 1, 0, new int[] {1})]
+        [TestCase(new int[] {1,2}, 1, 0, new int[] {1,1,2})]
+        [TestCase(new int[] {1,2,3}, 1, 1, new int[] {1,1,2,3})]
+        [TestCase(new int[] {1,2,3}, 1, 2, new int[] {1,2,1,3})]
+        [TestCase(new int[] {1,2,3}, 1, 3, new int[] {1,2,3,1})]
+
+        public void AddToIndexTests(int[] array, int value, int index, int[] expectedArr)
+        {
+
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(array);
+            LinkedList.LinkedList expected = new LinkedList.LinkedList(expectedArr);
+
+            actual.AddToIndex(index, value);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] {}, new [] {1,2}, 0, new int[] {1,2})]
+        [TestCase(new int[] {1,2}, new [] {1,2}, 0, new int[] {1,2,1,2})]
+        [TestCase(new int[] {1,2,3}, new [] {1,2}, 1, new int[] {1,1,2,2,3})]
+        [TestCase(new int[] {1,2,3}, new [] {1,2}, 2, new int[] {1,2,1,2,3})]
+        [TestCase(new int[] {1,2,3}, new [] {1,2}, 3, new int[] {1,2,3,1,2})]
+
+        public void AddToIndexTests(int[] array, int[] values, int index, int[] expectedArr)
+        {
+
+
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(array);
+            LinkedList.LinkedList expected = new LinkedList.LinkedList(expectedArr);
+
+            actual.AddToIndex(index, values);
+
+            Assert.AreEqual(expected, actual);
+        }
+        [TestCase(new int[] {1,2,3}, 10)]
+        public void AddToIndexNegativeTests(int[] array, int index)
+        {
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(array);
+            Assert.Throws<IndexOutOfRangeException>(() =>
+            {
+                actual.AddToIndex(index, 1);
+            });
+        }
+
+
+
 
         [TestCase(new int[] {1, 2, 3, 4, 5}, 0, 1)]
         [TestCase(new int[] {1, 2, 3, 4, 5}, 2, 3)]
@@ -90,20 +135,6 @@ namespace DataStructure.Test.LinkedListTests
             Assert.Throws<IndexOutOfRangeException>(() => { actual[index] = 1; });
         }
 
-        [TestCase(new int[] {1, 2, 3, 4, 5}, 0, int.MaxValue, new int[] {int.MaxValue, 1, 2, 3, 4, 5})]
-        [TestCase(new int[] {1, 2, 3, 4, 5}, 2, 10, new int[] {1, 2, 10, 3, 4, 5})]
-        [TestCase(new int[] {1, 2, 3, 4, 5}, 4, -9, new int[] {1, 2, 3, 4, -9, 5})]
-        [TestCase(new int[] {-1, -2, -3, -4, -5}, 4, -100, new int[] {-1, -2, -3, -4, -100, -5})]
-        [TestCase(new int[] {1}, 0, 0, new int[] {0, 1})]
-        [TestCase(new int[] { }, 0, 0, new int[] {0})]
-        public void AddByIndexTests(int[] array, int index, int value, int[] expArray)
-        {
-            LinkedList.LinkedList expected = new LinkedList.LinkedList(expArray);
-            LinkedList.LinkedList actual = new LinkedList.LinkedList(array);
-            actual.AddByIndex(index, value);
-
-            Assert.AreEqual(expected, actual);
-        }
 
         [TestCase(new int[] {1}, new int[] {1, 2}, 2)]
         [TestCase(new int[] { }, new int[] {1}, 1)]
