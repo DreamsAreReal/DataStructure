@@ -75,7 +75,6 @@ namespace DataStructure.LinkedList
         }
 
 
-
         public void Add(int value)
         {
             if (_root == null)
@@ -138,17 +137,17 @@ namespace DataStructure.LinkedList
             if (values.Length != 0)
             {
                 Node newNode = new Node(values[0]);
-                Length+=values.Length;
+                Length += values.Length;
                 Node curr = newNode;
-                for(int i=1;i<values.Length;i++)
+                for (int i = 1; i < values.Length; i++)
                 {
                     curr.Next = new Node(values[i]);
                     curr = curr.Next;
                 }
+
                 curr.Next = _root;
                 _root = newNode;
             }
-            
         }
 
         public void AddToIndex(int index, int value)
@@ -160,7 +159,6 @@ namespace DataStructure.LinkedList
         public void AddToIndex(int index, int[] values)
         {
             if (index < 0 || index > Length) throw new IndexOutOfRangeException();
-            if (values.Length == 0) throw new NullReferenceException("Values is empty!");
             if (index != 0)
             {
                 Node currRoot = _root;
@@ -169,6 +167,7 @@ namespace DataStructure.LinkedList
                 {
                     curr = curr.Next;
                 }
+
                 Node currNextNode = curr.Next;
                 Node tmp = new Node(values[0]);
                 curr.Next = tmp;
@@ -177,6 +176,7 @@ namespace DataStructure.LinkedList
                     tmp.Next = new Node(values[i]);
                     tmp = tmp.Next;
                 }
+
                 tmp.Next = currNextNode;
                 Length += values.Length;
                 _root = currRoot;
@@ -190,6 +190,7 @@ namespace DataStructure.LinkedList
                     tmp.Next = new Node(values[i]);
                     tmp = tmp.Next;
                 }
+
                 tmp.Next = _root;
                 Length += values.Length;
                 _root = curRoot;
@@ -199,17 +200,76 @@ namespace DataStructure.LinkedList
 
         public void Delete(int count = 1)
         {
-            throw new NotImplementedException();
+            if (count < 0 || count > Length)
+                throw new IndexOutOfRangeException("Count must be up to zero and down list length");
+            int i = 0;
+            if (count != 0)
+            {
+                Node curr = _root;
+                while (i > Length - count)
+                {
+                    curr = curr.Next;
+                    i++;
+                }
+
+                curr.Next = null;
+                Length = Length - count;
+            }
         }
 
         public void DeleteFromBegin(int count = 1)
         {
-            throw new NotImplementedException();
+            if (count < 0 || count > Length)
+                throw new IndexOutOfRangeException("Count must be up to zero and down list length");
+            int i = 0;
+            Node curr = _root;
+            while (i < count)
+            {
+                curr = curr.Next;
+                i++;
+            }
+
+            _root = curr;
+            Length -= count;
         }
 
         public void DeleteByIndex(int index, int count = 1)
         {
-            throw new NotImplementedException();
+            if (count < 0 || count + index > Length)
+                throw new IndexOutOfRangeException("Count must be up to zero and down list length");
+            if (index < 0 || index > Length - 1) throw new IndexOutOfRangeException();
+            int i = 0;
+            if (index != 0)
+            {
+                Node currRoot = _root;
+                Node curr = currRoot;
+                ;
+                while (i < index - 1)
+                {
+                    curr = curr.Next;
+                    i++;
+                }
+
+                Node pnt = curr;
+                Length -= count;
+                while (count > 0)
+                {
+                    pnt = pnt.Next;
+                    count--;
+                }
+
+                curr.Next = pnt.Next;
+                _root = currRoot;
+            }
+            else
+            {
+                Length -= count;
+                while (0 < count)
+                {
+                    _root = _root.Next;
+                    count--;
+                }
+            }
         }
 
         public void DeleteByValue(int value)
@@ -358,7 +418,6 @@ namespace DataStructure.LinkedList
             Sort(true);
         }
 
-        
 
         public void Reverse()
         {
@@ -425,22 +484,22 @@ namespace DataStructure.LinkedList
         {
             return base.GetHashCode();
         }
-        
+
         private void Sort(bool desceding)
         {
             int i = 0;
             Node tmp;
             Node root = _root;
-            Node curr=root;
-            Node prev=curr;
-            while(i<Length-1)
+            Node curr = root;
+            Node prev = curr;
+            while (i < Length - 1)
             {
-                if((!desceding && curr.Next.Value<curr.Value) || (desceding && curr.Next.Value>curr.Value))
+                if ((!desceding && curr.Next.Value < curr.Value) || (desceding && curr.Next.Value > curr.Value))
                 {
                     tmp = curr.Next;
                     curr.Next = tmp.Next;
                     tmp.Next = curr;
-                    if(i==0)
+                    if (i == 0)
                     {
                         root = tmp;
                     }
@@ -448,19 +507,21 @@ namespace DataStructure.LinkedList
                     {
                         prev.Next = tmp;
                     }
+
                     curr = root;
                     i = 0;
                 }
                 else
                 {
                     i++;
-                    if(curr.Next!=null)
+                    if (curr.Next != null)
                     {
                         prev = curr;
                         curr = curr.Next;
                     }
                 }
             }
+
             _root = root;
         }
     }

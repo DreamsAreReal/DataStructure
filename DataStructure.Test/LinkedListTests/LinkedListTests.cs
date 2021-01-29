@@ -366,5 +366,84 @@ namespace DataStructure.Test.LinkedListTests
                 actual.DeleteAllByValue(1);
             }));
         }
+
+        [TestCase(1, new int[] { 1 }, new int[] { 1, 2 })]
+        [TestCase(2, new int[] { 1 }, new int[] { 1, 2,3 })]
+        [TestCase(3, new int[] { }, new int[] { 1, 2,3 })]
+        [TestCase(0, new int[] {1,2,3 }, new int[] { 1, 2, 3 })]
+        public void DeleteTests(int count, int[] expectedArr, int[] arr)
+        {
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
+            LinkedList.LinkedList expected = new LinkedList.LinkedList(expectedArr);
+
+            actual.Delete(count);
+
+            Assert.AreEqual(expected,actual);
+        }
+
+        [TestCase(new int[] {}, 10)]
+        [TestCase(new int[] {1,2,3}, 5)]
+        public void DeleteNegativeTests(int[] arr,int count)
+        {
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
+            Assert.Throws<IndexOutOfRangeException>((() =>
+            {
+                actual.Delete(count);
+            }));
+
+        }
+
+        [TestCase(1, new int[] {2 }, new int[] { 1, 2 })]
+        [TestCase(2, new int[] { 3 }, new int[] { 1, 2, 3 })]
+        [TestCase(3, new int[] { }, new int[] { 1, 2, 3 })]
+        [TestCase(0, new int[] { 1, 2, 3 }, new int[] { 1, 2, 3 })]
+        public void DeleteFromBeginTests(int count,int[] expectedArr, int[] arr)
+        {
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
+            LinkedList.LinkedList expected = new LinkedList.LinkedList(expectedArr);
+
+            actual.DeleteFromBegin(count);
+
+            Assert.AreEqual(expected,actual);
+        }
+
+        [TestCase(new int[] {}, 10)]
+        [TestCase(new int[] {1,2,3}, 5)]
+        public void DeleteFromBeginNegativeTests(int[] arr,int count)
+        {
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
+            Assert.Throws<IndexOutOfRangeException>((() =>
+            {
+                actual.DeleteFromBegin(count);
+            }));
+
+        }
+
+        [TestCase(1, 2, new int[] { 1, 4,5 }, new int[] { 1, 2, 3,4 ,5})]
+        [TestCase(1, 1, new int[] { 1, 3,4, 5 }, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(1, 3, new int[] { 1, 5 }, new int[] { 1, 2, 3, 4, 5 })]
+        [TestCase(1, 2, new int[] { 1}, new int[] { 1, 2, 3 })]
+        [TestCase(2, 1, new int[] { 1,2 }, new int[] { 1, 2, 3 })]
+        public void DeleteByIndexTests(int index, int count,int[] expectedArr, int[] arr)
+        {
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
+            LinkedList.LinkedList expected = new LinkedList.LinkedList(expectedArr);
+
+            actual.DeleteByIndex(index, count);
+
+            Assert.AreEqual(expected,actual);
+        }
+
+        [TestCase(new int[] {}, 10)]
+        [TestCase(new int[] {1,2,3}, 5)]
+        public void DeleteByIndexNegativeTests(int[] arr,int count)
+        {
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(arr);
+            Assert.Throws<IndexOutOfRangeException>((() =>
+            {
+                actual.DeleteByIndex(count);
+            }));
+
+        }
     }
 }
