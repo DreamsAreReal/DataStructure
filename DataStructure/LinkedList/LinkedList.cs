@@ -154,12 +154,28 @@ namespace DataStructure.LinkedList
 
         public void AddToBegin(int value)
         {
-            throw new NotImplementedException();
+            Node newNode = new Node(value);
+            Length++;
+            newNode.Next = _root;
+            _root = newNode;
         }
 
         public void AddToBegin(int[] values)
         {
-            throw new NotImplementedException();
+            if (values.Length != 0)
+            {
+                Node newNode = new Node(values[0]);
+                Length+=values.Length;
+                Node curr = newNode;
+                for(int i=1;i<values.Length;i++)
+                {
+                    curr.Next = new Node(values[i]);
+                    curr = curr.Next;
+                }
+                curr.Next = _root;
+                _root = newNode;
+            }
+            
         }
 
         public void AddToIndex(int index, int value)

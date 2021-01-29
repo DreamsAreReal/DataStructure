@@ -5,6 +5,42 @@ namespace DataStructure.Test.LinkedListTests
 {
     public class LinkedListTests
     {
+        [TestCase(new int[] {}, 0, new int[] {0})]
+        [TestCase(new int[] {1, 2, 3, 4, 5}, 0, new int[] {0, 1, 2, 3, 4, 5})]
+        [TestCase(new int[] {1, 2, 3, 4, 5}, 2, new int[] {2, 1, 2, 3, 4, 5})]
+        [TestCase(new int[] {1, 2, 3, 4, 5}, 4, new int[] {4, 1, 2, 3, 4, 5})]
+        [TestCase(new int[] {-1, -2, -3, -4, -5}, 4, new int[] {4, -1, -2, -3, -4, -5})]
+        [TestCase(new int[] {1}, 0, new int[] {0, 1})]
+        public void AddToBeginTests(int[] array, int value, int[] expectedArr)
+        {
+            LinkedList.LinkedList linkedList = new LinkedList.LinkedList(array);
+
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(array);
+            LinkedList.LinkedList expected = new LinkedList.LinkedList(expectedArr);
+
+            actual.AddToBegin(value);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCase(new int[] {}, new [] {1,2,3}, new int[] {1,2,3})]
+        [TestCase(new int[] {1, 2, 3, 4, 5}, new [] {1,2,3}, new int[] {1,2,3,1, 2, 3, 4, 5})]
+        [TestCase(new int[] {1, 2, 3, 4, 5}, new int[] {}, new int[] {1, 2, 3, 4, 5})]
+        [TestCase(new int[] {1, 2, 3, 4, 5}, new [] {1}, new int[] {1,1, 2, 3, 4, 5})]
+        [TestCase(new int[] {-1, -2, -3, -4, -5}, new [] {1,2}, new int[] {1,2,-1, -2, -3, -4, -5})]
+        [TestCase(new int[] {1}, new [] {1,2,3}, new int[] {1,2,3,1})]
+        public void AddToBeginTests(int[] array, int[] values, int[] expectedArr)
+        {
+            LinkedList.LinkedList linkedList = new LinkedList.LinkedList(array);
+
+            LinkedList.LinkedList actual = new LinkedList.LinkedList(array);
+            LinkedList.LinkedList expected = new LinkedList.LinkedList(expectedArr);
+
+            actual.AddToBegin(values);
+
+            Assert.AreEqual(expected, actual);
+        }
+
         [TestCase(new int[] {1, 2, 3, 4, 5}, 0, 1)]
         [TestCase(new int[] {1, 2, 3, 4, 5}, 2, 3)]
         [TestCase(new int[] {1, 2, 3, 4, 5}, 4, 5)]
