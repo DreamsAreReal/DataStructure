@@ -4,7 +4,7 @@ namespace DataStructure.LinkedList
 {
     public class LinkedList : IDataStructure
     {
-        public int Length { get; private set;}
+        public int Length { get; private set; }
         private Node _root;
 
         public LinkedList()
@@ -12,13 +12,13 @@ namespace DataStructure.LinkedList
             Length = 0;
             _root = null;
         }
-        
+
         public LinkedList(int value)
         {
             Length = 0;
             _root = null;
         }
-        
+
         public LinkedList(int[] array)
         {
             Length = array.Length;
@@ -36,7 +36,7 @@ namespace DataStructure.LinkedList
             else
             {
                 _root = null;
-            }            
+            }
         }
 
         public int this[int index]
@@ -47,12 +47,13 @@ namespace DataStructure.LinkedList
                 {
                     throw new IndexOutOfRangeException("Index must be greater than zero and less than length.");
                 }
-                
+
                 Node tmp = _root;
                 for (int i = 0; i < index; i++)
                 {
                     tmp = tmp.Next;
                 }
+
                 return tmp.Value;
             }
 
@@ -62,11 +63,13 @@ namespace DataStructure.LinkedList
                 {
                     throw new IndexOutOfRangeException("Index must be greater than zero and less than length.");
                 }
+
                 Node tmp = _root;
                 for (int i = 0; i < index; i++)
                 {
                     tmp = tmp.Next;
                 }
+
                 tmp.Value = value;
             }
         }
@@ -77,6 +80,7 @@ namespace DataStructure.LinkedList
             {
                 throw new IndexOutOfRangeException("Index must be greater than zero and less than length.");
             }
+
             if (index != 0)
             {
                 Node crnt = _root;
@@ -84,6 +88,7 @@ namespace DataStructure.LinkedList
                 {
                     crnt = crnt.Next;
                 }
+
                 Node tmp = new Node(value);
                 tmp.Next = crnt.Next;
                 crnt.Next = tmp;
@@ -94,6 +99,7 @@ namespace DataStructure.LinkedList
                 tmp.Next = _root;
                 _root = tmp;
             }
+
             Length++;
         }
 
@@ -111,9 +117,11 @@ namespace DataStructure.LinkedList
                 {
                     tmp = tmp.Next;
                 }
+
                 Node node = new Node(value);
                 tmp.Next = node;
             }
+
             Length++;
         }
 
@@ -128,19 +136,18 @@ namespace DataStructure.LinkedList
             }
 
             Node tmp = _root;
-            
+
             for (int i = 0; i < Length - 1; i++)
             {
                 tmp = tmp.Next;
             }
-            
+
             for (int i = begin; i < values.Length; i++)
             {
                 tmp.Next = new Node(values[i]);
                 tmp = tmp.Next;
             }
-            
-           
+
 
             Length += values.Length;
         }
@@ -191,7 +198,6 @@ namespace DataStructure.LinkedList
             Node prev = null;
             for (int i = 0; i < Length; i++)
             {
-                
                 if (curr.Value == value)
                 {
                     if (prev == null)
@@ -202,13 +208,13 @@ namespace DataStructure.LinkedList
                     {
                         prev.Next = curr.Next;
                     }
+
                     Length--;
                     break;
                 }
 
                 prev = curr;
                 curr = curr.Next;
-                
             }
         }
 
@@ -235,27 +241,22 @@ namespace DataStructure.LinkedList
                         prev.Next = curr.Next;
                         Length--;
                     }
-                    
                 }
                 else
                 {
                     prev = curr;
                 }
+
                 curr = curr.Next;
             }
-            
-            
-            
-
-
         }
 
         public int GetMax()
         {
-            if(_root==null) throw new NullReferenceException("List can't be null");
+            if (_root == null) throw new NullReferenceException("List can't be null");
             int max = _root.Value;
             Node tmp = _root;
-            for (int i = 0; i < Length-1; i++)
+            for (int i = 0; i < Length - 1; i++)
             {
                 tmp = tmp.Next;
                 if (max < tmp.Value)
@@ -269,10 +270,10 @@ namespace DataStructure.LinkedList
 
         public int GetMin()
         {
-            if(_root==null) throw new NullReferenceException("List can't be null");
+            if (_root == null) throw new NullReferenceException("List can't be null");
             int min = _root.Value;
             Node tmp = _root;
-            for (int i = 0; i < Length-1; i++)
+            for (int i = 0; i < Length - 1; i++)
             {
                 tmp = tmp.Next;
                 if (min > tmp.Value)
@@ -286,17 +287,17 @@ namespace DataStructure.LinkedList
 
         public int GetMaxIndex()
         {
-            if(_root==null) throw new NullReferenceException("List can't be null");
+            if (_root == null) throw new NullReferenceException("List can't be null");
             int max = _root.Value;
             int maxIndex = 0;
             Node tmp = _root;
-            for (int i = 0; i < Length-1; i++)
+            for (int i = 0; i < Length - 1; i++)
             {
                 tmp = tmp.Next;
                 if (max < tmp.Value)
                 {
                     max = tmp.Value;
-                    maxIndex = i+1;
+                    maxIndex = i + 1;
                 }
             }
 
@@ -305,17 +306,17 @@ namespace DataStructure.LinkedList
 
         public int GetMinIndex()
         {
-            if(_root==null) throw new NullReferenceException("List can't be null");
+            if (_root == null) throw new NullReferenceException("List can't be null");
             int min = _root.Value;
             int minIndex = 0;
             Node tmp = _root;
-            for (int i = 0; i < Length-1; i++)
+            for (int i = 0; i < Length - 1; i++)
             {
                 tmp = tmp.Next;
                 if (min > tmp.Value)
                 {
                     min = tmp.Value;
-                    minIndex = i+1;
+                    minIndex = i + 1;
                 }
             }
 
@@ -324,47 +325,23 @@ namespace DataStructure.LinkedList
 
         public void SortAscending()
         {
-            for (int i = 0; i < Length; i++)
-            {
-                Node curr = _root;
-                for (int j = 1; j < Length - i; j++)
-                {
-                    if (curr.Value > curr.Next.Value)
-                    {
-                        int tmp = curr.Next.Value;
-                        curr.Next.Value = curr.Value;
-                        curr.Value = tmp;
-                    }
-                    curr = curr.Next;
-                }
-            }
+            Sort(false);
         }
 
         public void SortDescending()
         {
-            for (int i = 0; i < Length; i++)
-            {
-                Node curr = _root;
-                for (int j = 1; j < Length - i; j++)
-                {
-                    if (curr.Value < curr.Next.Value)
-                    {
-                        int tmp = curr.Next.Value;
-                        curr.Next.Value = curr.Value;
-                        curr.Value = tmp;
-                    }
-                    curr = curr.Next;
-                }
-            }
+            Sort(true);
         }
+
+        
 
         public void Reverse()
         {
-            if (Length<=0)
+            if (Length <= 0)
             {
                 throw new NullReferenceException("List length can't be zerro");
             }
-            
+
             Node curr = _root;
             Node prev = null;
             while (curr.Next != null)
@@ -374,15 +351,16 @@ namespace DataStructure.LinkedList
                 prev = curr;
                 curr = next;
             }
+
             curr.Next = prev;
             _root = curr;
         }
-        
+
         public override bool Equals(object obj)
         {
-            LinkedList linkedList = (LinkedList)obj;
+            LinkedList linkedList = (LinkedList) obj;
 
-            if(Length!=linkedList.Length)
+            if (Length != linkedList.Length)
             {
                 return false;
             }
@@ -390,17 +368,20 @@ namespace DataStructure.LinkedList
             Node tmp1 = _root;
             Node tmp2 = linkedList._root;
 
-            for(int i=0; i<Length;i++)
+            for (int i = 0; i < Length; i++)
             {
-                if(tmp1.Value!=tmp2.Value)
+                if (tmp1.Value != tmp2.Value)
                 {
                     return false;
                 }
+
                 tmp1 = tmp1.Next;
                 tmp2 = tmp2.Next;
             }
+
             return true;
         }
+
         public override string ToString()
         {
             string text = "";
@@ -411,11 +392,51 @@ namespace DataStructure.LinkedList
                 text += tmp.Value + ";";
                 tmp = tmp?.Next;
             }
+
             return text;
         }
+
         public override int GetHashCode()
         {
             return base.GetHashCode();
+        }
+        
+        private void Sort(bool desceding)
+        {
+            int i = 0;
+            Node tmp;
+            Node root = _root;
+            Node curr=root;
+            Node prev=curr;
+            while(i<Length-1)
+            {
+                if((!desceding && curr.Next.Value<curr.Value) || (desceding && curr.Next.Value>curr.Value))
+                {
+                    tmp = curr.Next;
+                    curr.Next = tmp.Next;
+                    tmp.Next = curr;
+                    if(i==0)
+                    {
+                        root = tmp;
+                    }
+                    else
+                    {
+                        prev.Next = tmp;
+                    }
+                    curr = root;
+                    i = 0;
+                }
+                else
+                {
+                    i++;
+                    if(curr.Next!=null)
+                    {
+                        prev = curr;
+                        curr = curr.Next;
+                    }
+                }
+            }
+            _root = root;
         }
     }
 }
